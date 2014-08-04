@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _Practice_DI_Property;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,15 @@ namespace _Practice_DI_Constructor
 {
     public class AuthenticationService
     {
-        private EmailService msgService;
-        //private ShortMessageService msgService;
+        // Property Injection
+        private IMessageService msgService;
+
+        internal IMessageService MessageService
+        {
+            get { return this.msgService; }
+            set { this.msgService = value; }
+        }
+
         public AuthenticationService()
         {
             msgService = new EmailService(); // 建立用來發送驗證碼的物件
