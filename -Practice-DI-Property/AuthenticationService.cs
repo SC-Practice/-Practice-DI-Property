@@ -1,9 +1,4 @@
 ﻿using _Practice_DI_Property;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _Practice_DI_Constructor
 {
@@ -20,11 +15,10 @@ namespace _Practice_DI_Constructor
 
         public AuthenticationService()
         {
-            msgService = new EmailService(); // 建立用來發送驗證碼的物件
-            //msgService = new ShortMessageService(); // 修改使用簡訊類別來建立類別
-        }        
+        }
 
         #region 驗證的副程式
+
         public bool TwoFactorLogin(string userId, string pwd)
         {
             // 檢查帳號密碼，若正確，則傳回一個包含使用者資訊的物件。
@@ -56,6 +50,7 @@ namespace _Practice_DI_Constructor
                 return new User();
             }
         }
-        #endregion
+
+        #endregion 驗證的副程式
     }
 }
