@@ -22,7 +22,14 @@ namespace _Practice_DI_Constructor
             {
                 if (this.msgService == null)
                 {
-                    this.msgService = new EmailService();// EmailService or ShortMessageService      
+                    this.msgService = new EmailService();// EmailService or ShortMessageService
+                    #region 但是預設實作又被 new 綁住了!
+                    /*
+                     * 如此一來，此類別又和特定實作DefaultMessageService 綁在一起了。
+                     * 如果你覺得這種寫法不好，亦可考慮使用稍後介紹的Method Injection（方法注入）或Ambient Context（環境脈絡），
+                     * 或先前提過的Factory 模式來解決，例如Factory Method。
+                     * */
+                    #endregion
                 }
 
                 return this.msgService;
