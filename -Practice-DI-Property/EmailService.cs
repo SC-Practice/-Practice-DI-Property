@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using _Practice_DI_Property;
+using System;
 
 namespace _Practice_DI_Constructor
 {
-    public class EmailService
+    public class EmailService : IMessageService
     {
         public void Send(User user, string msg)
         {
