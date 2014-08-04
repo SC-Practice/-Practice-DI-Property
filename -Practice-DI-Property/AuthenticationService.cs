@@ -1,17 +1,36 @@
 ﻿using _Practice_DI_Property;
+using System;
 
 namespace _Practice_DI_Constructor
 {
     public class AuthenticationService
     {
         // Property Injection
-        private IMessageService msgService;
+        private IMessageService msgService;        
 
+        #region 如果上層沒有設定 MessageService 屬性呢? _1
+        /*
+         * 為避免用戶端, 實作 AuthenticationService 物件, 卻沒有設定屬性, 而發生 NullReferenceExceptio
+         * 1. 類別本身提供預設實作
+         * 2. 撰寫 null 檢查邏輯
+        */
+
+        // 1. 類別本身提供預設實作
         internal IMessageService MessageService
         {
-            get { return this.msgService; }
+            get
+            {
+                if (this.msgService == null)
+                {
+                    this.msgService = new EmailService();// EmailService or ShortMessageService      
+                }
+
+                return this.msgService;
+            }
+
             set { this.msgService = value; }
         }
+        #endregion
 
         public AuthenticationService()
         {
@@ -25,8 +44,17 @@ namespace _Practice_DI_Constructor
             User user = CheckPassword(userId, pwd);
             if (user != null)
             {
+                #region 如果用戶端() 沒有設定 MessageService 屬性呢? _2
+                //// 2. 撰寫 null 檢查邏輯
+                if (MessageService == null)
+                {
+                    Console.WriteLine("未設定 MessageService 屬性");
+                    return false;
+                }
+                #endregion
+
                 // 接著發送驗證碼給使用者，假設隨機產生的驗證碼為"123456"。
-                this.msgService.Send(user, " 您的登入驗證碼為 123456");
+                MessageService.Send(user, " 您的登入驗證碼為 123456");
                 return true;
             }
 

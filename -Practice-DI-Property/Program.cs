@@ -14,10 +14,13 @@ namespace _Practice_DI_Property
 
         public static void Login(string userId, string password)
         {
-            var authService = new AuthenticationService()
-                {
-                    MessageService = new EmailService()
-                };
+            //var authService = new AuthenticationService()
+            //    {
+            //        MessageService = new EmailService()
+            //    };
+
+            // 實作 AuthenticationService 類別時, 沒有注入 IMessageService 屬性
+            var authService = new AuthenticationService();
 
             #region 使用 authService 物件進行驗證判斷
 
